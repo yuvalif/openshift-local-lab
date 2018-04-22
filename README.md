@@ -7,6 +7,8 @@ The script ```create-lab.sh``` should generate the 3 machines, each with 20GB of
 
 The script ```destroy-vm.sh <hostname> <cluster-name>``` could be used to cleanup a virtual machine (note that storage will also be deleted).
 
+> Note that the user/password on these machines is root/centos
+
 # Install Openshift
 Once the 3 machines are running, you can use the ```openshift-lab.sh``` script to opens a tmux session with 4 windows, one local and 3 to the 3 machines.
 
