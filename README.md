@@ -1,4 +1,4 @@
-# Create Virtual Cluster
+# Create Local Virtual Cluster
 The following set of scripts builds an Openshift cluster on your local machine. This was tested on Fedora 27 but may work on other distros, with some modifications. In the first step, 3 virtual machines, with CentOS7.4, will be created on the local machine using [libvirt](https://libvirt.org/).
 
 For installation instructions of libvirt on Fedora, see [here](https://docs.fedoraproject.org/quick-docs/en-US/getting-started-with-virtualization.html).
@@ -10,7 +10,8 @@ For installation instructions of libvirt on Fedora, see [here](https://docs.fedo
 > sudo usermod -a -G libvirt $USER
 > ```
 
-The script ```create-lab.sh``` should generate the 3 machines, each with 20GB of disk, 2GB RAM and 2 CPUs. One will be the clsuter's master and the other two will be nodes. The machines will be named: ```master.cluster1```, ```node1.cluster1``` and ```node2.cluster1``` accordingly. This script is calling the ```create-vm.sh <hostname> <cluster-name>``` script that actually generates a virtual machine. Modify this script for different ammount of disk, RAM and CPUs, but note that lower numbers may fail the Openshift install process.
+The script ```create-lab.sh``` should generate the 3 machines, each with 20GB of disk, 2GB RAM and 2 CPUs. One will be the clsuter's master and the other two will be nodes. The machines will be named: ```master.cluster1```, ```node1.cluster1``` and ```node2.cluster1``` accordingly. This script is calling the ```create-vm.sh <hostname> <cluster-name>``` script that actually generates a virtual machine, together with storage and networking (hostnames and IPs are updated locally in ```/etc/hosts```).
+Modify this script for different ammount of disk, RAM and CPUs, but note that lower numbers may fail the Openshift install process.
 
 The script ```destroy-vm.sh <hostname> <cluster-name>``` could be used to cleanup a virtual machine (note that storage will also be deleted).
 
