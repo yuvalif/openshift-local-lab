@@ -3,6 +3,13 @@ The following set of scripts builds an Openshift cluster on your local machine. 
 
 For installation instructions of libvirt on Fedora, see [here](https://docs.fedoraproject.org/quick-docs/en-US/getting-started-with-virtualization.html).
 
+> Note that two steps that should be taken before starting:
+> * Set the default libvirt URI: add ```export LIBVIRT_DEFAULT_URI=qemu:///system``` to ```~/.bashrc``` (don't forget to actually run that on the current terminal)
+> * Add your user to the ```libvirt``` group, so that ```sudo``` is not required when invoking libvirt commands: 
+> ```
+> sudo usermod -a -G libvirt $USER
+> ```
+
 The script ```create-lab.sh``` should generate the 3 machines, each with 20GB of disk, 2GB RAM and 2 CPUs. One will be the clsuter's master and the other two will be nodes. The machines will be named: ```master.cluster1```, ```node1.cluster1``` and ```node2.cluster1``` accordingly. This script is calling the ```create-vm.sh <hostname> <cluster-name>``` script that actually generates a virtual machine. Modify this script for different ammount of disk, RAM and CPUs, but note that lower numbers may fail the Openshift install process.
 
 The script ```destroy-vm.sh <hostname> <cluster-name>``` could be used to cleanup a virtual machine (note that storage will also be deleted).
