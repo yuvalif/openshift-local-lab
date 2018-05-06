@@ -20,14 +20,15 @@ The script ```destroy-vm.sh <hostname> <cluster-name>``` could be used to cleanu
 # Install OpenShift
 Once the 3 machines are running, you can use the ```openshift-lab.sh``` script to opens a tmux session with 4 windows, one local and 3 to the 3 machines.
 
-At this point, OpenShift3.9 could be installed on the setup. The installation is using OpenShift Origin and assumes RPM based installation on CentOS7.4 machines.
-The process should be as follows:
+At this point, OpenShift3.9 could be installed on the setup. The installation is using OpenShift Origin and assumes RPM based installation on CentOS7.4 machines. The process here assume that installation happens from an external box (e.g. your laptop), and not from the master node (even though this is also possible). And should be as follows:
 * After machines are first created, password-less SSH connection with them needs to be established. For that, you can use the ```renew-ssh-openshift-lab.sh``` script. Note that this script also cleans up any existing ssh entries.
   * This maps to this [section](https://docs.openshift.org/3.9/install_config/install/host_preparation.html#ensuring-host-access) in the guide
+  * Make sure that ```dig``` is installed on the machine used for installation (e.g. your laptop). Use: ```yum install bind-utils```
 * Run the: ```openshift-base-packages.sh``` script on each host to install base packages and docker
   * This maps to these sections in the guide:
     * [Base Packages](https://docs.openshift.org/3.9/install_config/install/host_preparation.html#installing-base-packages)
     * [Docker](https://docs.openshift.org/3.9/install_config/install/host_preparation.html#installing-docker)
+    * Note that this scripts are not maintained with the documentation, so, a good thing would be to make sure that they stil follow the manual steps, or just carry on the manual steps from the guide without the script
   * Note that for the install process, docker is not required on the host, just the VMs
 * Optionally, use the ```openshift-lab-prerequisite.sh``` script to run the above 2 scripts on each of the 3 servers ([TODO] probably better to create an ansible playbook for that)
 * Last step would be to clone the ansible playbook git repository (currently tested with tag: [openshift-ansible-3.9.14-1](https://github.com/openshift/openshift-ansible/releases/tag/openshift-ansible-3.9.14-1) only) and run the following playbooks using the ```openshift-lab.ini``` inventory file:
